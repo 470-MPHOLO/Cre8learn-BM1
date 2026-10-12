@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cre8Learn Institute: Business Management 1 Portal</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #161a22;
+    --surface-2: #1c2129;
+    --border: #2a3038;
+    --accent: #4f9cf9;
+    --accent-dim: #2a5a94;
+    --gold: #e0b84a;
+    --green: #4cd07a;
+    --red: #e05c5c;
+    --text: #dfe6f0;
+    --text-dim: #8892a4;
+    --mono: "Courier New", Courier, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .topbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .brand .inst {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: var(--mono);
+    width: 100%;
+    margin-bottom: -4px;
+  }
+  .brand .name {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.3px;
+  }
+  .brand .sub {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .tabs {
+    display: flex;
+    gap: 6px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    padding: 4px;
+  }
+  .tab {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 9px 20px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    font-weight: 500;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    background: var(--accent);
+    color: #0f1117;
+    font-weight: 600;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 28px 24px 80px;
+  }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  .portal-intro {
+    background: linear-gradient(135deg, #1a2133 0%, #161a22 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 30px;
+    margin-bottom: 26px;
+    position: relative;
+  }
+  .portal-intro .inst-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .portal-intro h1 {
+    font-size: 24px;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .portal-intro p {
+    color: var(--text-dim);
+    font-size: 14px;
+    max-width: 720px;
+  }
+
+  .week-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .week-card:hover { border-color: var(--accent-dim); }
+  .week-header {
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .week-header .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .week-header h3 {
+    font-size: 16px;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .week-header .toggle {
+    color: var(--accent);
+    font-size: 20px;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .week-card.open .toggle { transform: rotate(45deg); }
+
+  .week-body {
+    display: none;
+    padding: 4px 24px 22px;
+    border-top: 1px solid var(--border);
+  }
+  .week-card.open .week-body { display: block; }
+
+  .topic {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .topic:last-child { border-bottom: none; }
+  .topic h4 {
+    font-size: 14.5px;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .topic p, .topic li {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+  .topic ul {
+    padding-left: 20px;
+    margin-top: 4px;
+  }
+  .topic strong { color: var(--text); }
+  .topic .quote {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    background: var(--surface-2);
+    padding: 10px 14px;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    color: var(--text);
+    margin: 8px 0;
+  }
+
+  .quiz-intro {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 26px 30px;
+    margin-bottom: 22px;
+    text-align: center;
+  }
+  .quiz-intro .inst-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .quiz-intro h2 {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .quiz-intro p {
+    color: var(--text-dim);
+    font-size: 13.5px;
+    margin-bottom: 16px;
+  }
+  .quiz-intro .start-btn {
+    background: var(--accent);
+    color: #0f1117;
+    border: none;
+    padding: 13px 34px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.15s;
+  }
+  .quiz-intro .start-btn:hover {
+    box-shadow: 0 0 24px rgba(79, 156, 249, 0.35);
+  }
+  .quiz-intro .start-btn:active { transform: scale(0.98); }
+
+  .q-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+  }
+  .q-card .meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .q-card .qnum {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .q-card .week-tag {
+    font-size: 10px;
+    background: var(--surface-2);
+    color: var(--text-dim);
+    padding: 2px 10px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+  }
+  .q-card .qtext {
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 16px;
+    font-weight: 500;
+    line-height: 1.55;
+  }
+  .q-options {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .q-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    background: var(--surface-2);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13.5px;
+    color: var(--text-dim);
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+  }
+  .q-option:hover {
+    background: #222a35;
+    color: var(--text);
+  }
+  .q-option .letter {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .q-option.selected {
+    border-color: var(--accent);
+    background: rgba(79, 156, 249, 0.08);
+    color: var(--text);
+  }
+  .q-option.selected .letter {
+    background: var(--accent);
+    color: #0f1117;
+  }
+  .q-option.correct {
+    border-color: var(--green);
+    background: rgba(76, 208, 122, 0.08);
+    color: var(--text);
+  }
+  .q-option.correct .letter {
+    background: var(--green);
+    color: #0f1117;
+  }
+  .q-option.wrong {
+    border-color: var(--red);
+    background: rgba(224, 92, 92, 0.08);
+    color: var(--text);
+  }
+  .q-option.wrong .letter {
+    background: var(--red);
+    color: #fff;
+  }
+
+  .quiz-controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 26px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    font-family: inherit;
+    font-size: 13.5px;
+    padding: 11px 26px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.15s;
+    border: 1px solid transparent;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn.primary {
+    background: var(--accent);
+    color: #0f1117;
+  }
+  .btn.ghost {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text-dim);
+  }
+  .btn.ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .score-banner {
+    background: linear-gradient(135deg, #1a2133 0%, #161a22 100%);
+    border: 1px solid var(--accent-dim);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin-top: 26px;
+    display: none;
+  }
+  .score-banner.show { display: block; }
+  .score-banner .big {
+    font-size: 40px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .score-banner .msg {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin-top: 6px;
+  }
+
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    font-size: 12.5px;
+    color: var(--text-dim);
+    font-family: var(--mono);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .bar-outer {
+    flex: 1;
+    min-width: 160px;
+    height: 6px;
+    background: var(--surface-2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .bar-inner {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, var(--accent-dim), var(--accent));
+    transition: width 0.3s;
+  }
+
+  .site-footer {
+    text-align: center;
+    padding: 26px 20px 40px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+  .site-footer strong { color: var(--gold); }
+
+  @media (max-width: 640px) {
+    .topbar { padding: 12px 16px; }
+    .container { padding: 20px 16px 60px; }
+    .portal-intro, .quiz-intro { padding: 22px 20px; }
+    .q-card { padding: 18px 18px; }
+    .tab { padding: 8px 14px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="inst">Cre8Learn Institute</span>
+    <span class="name">Business Management 1</span>
+    <span class="sub">Learning Portal</span>
+  </div>
+  <div class="tabs">
+    <button class="tab active" data-view="study" type="button">Study Portal</button>
+    <button class="tab" data-view="quiz" type="button">Quiz Bank</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="view active" id="view-study">
+    <div class="portal-intro">
+      <span class="inst-tag">Cre8Learn Institute</span>
+      <h1>Business Management 1 — Study Portal</h1>
+      <p>All key topics from Weeks 1 through 8. Click any topic card to open it. Everything is handled right here in the page.</p>
+    </div>
+
+    <div class="week-card open">
+      <div class="week-header">
+        <div>
+          <span class="label">Week 1</span>
+          <h3>Introduction to Business Management</h3>
+        </div>
+        <span class="toggle">+</span>
+      </div>
+      <div class="week-body">
+        <div class="topic">
+          <h4>What is a Business?</h4>
+          <p>An organisation that provides goods and services to its customers in a specific environment. People operate businesses in order to generate profit.</p>
+        </div>
+        <div class="topic">
+          <h4>Goods vs Services</h4>
+          <ul>
+            <li><strong>Goods</strong> are tangible objects that satisfy needs and wants. Examples: food, clothing, furniture, cell phones.</li>
+            <li><strong>Services</strong> are actions done for others. Examples: teaching, machinery repair, hair cut.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Customer vs Consumer</h4>
+          <p>A <strong>customer</strong> buys products from businesses, while a <strong>consumer</strong> uses the products. You can be both at once in the same transaction.</p>
+        </div>
+        <div class="topic">
+          <h4>Business Management</h4>
+          <p>The art and science concerned with studying what a business is, how to establish and manage it efficiently and effectively to maximise profitability. Business management developed from economics.</p>
+        </div>
+        <div class="topic">
+          <h4>Factors of Production</h4>
+          <ul>
+            <li><strong>Natural resources</strong> — land, water, minerals.</li>
+            <li><strong>Human resources (labour)</strong> — employees with skills and expertise.</li>
+            <li><strong>Capital</strong> — money or assets used to deliver value.</li>
+            <li><strong>Entrepreneurship</strong> — developing and managing a venture, taking risks.</li>
+            <li><strong>Knowledge</strong> — understanding your product, customers and competitors.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Profit vs Non Profit Firms</h4>
+          <ul>
+            <li><strong>Profit seeking firms</strong> — aim to earn more revenue than expenses. Examples: Pick n Pay, Shoprite, Spar.</li>
+            <li><strong>Non profit seeking firms</strong> — need satisfying institutions. Examples: government hospitals, ministries.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Business Stakeholders</h4>
+          <ul>
+            <li><strong>Business related</strong> — owners, investors, consumers, personnel, shareholders, banks, auditors, suppliers.</li>
+            <li><strong>Public related</strong> — local authorities, national authorities, neighbours, NGOs, trade unions, politicians.</li>
+            <li><strong>Opinion related</strong> — competitors, potential employees, media.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>What is Management?</h4>
+          <div class="quote">Smit and Cronje (2002): management is the process of planning, organizing, leading and controlling the resources of the organisation to achieve stated organisational goals as productively as possible.</div>
+          <p><strong>Efficiency</strong> means doing things right, getting the most output from the least input.</p>
+          <p><strong>Effectiveness</strong> means doing the right things, attaining organisational goals.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-card">
+      <div class="week-header">
+        <div>
+          <span class="label">Week 2 and 3</span>
+          <h3>Levels, Functions, Skills and Roles of Management</h3>
+        </div>
+        <span class="toggle">+</span>
+      </div>
+      <div class="week-body">
+        <div class="topic">
+          <h4>Who Are Managers?</h4>
+          <p>A manager works with and through other people by coordinating their work activities to accomplish organisational goals.</p>
+        </div>
+        <div class="topic">
+          <h4>Four Functions of Management</h4>
+          <ul>
+            <li><strong>Planning</strong> — defining goals and strategies.</li>
+            <li><strong>Organizing</strong> — determining tasks, who does them, who reports to whom.</li>
+            <li><strong>Leading</strong> — motivating and influencing individuals and teams.</li>
+            <li><strong>Controlling</strong> — monitoring performance against goals.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Levels of Management</h4>
+          <ul>
+            <li><strong>Top managers</strong> — CEO, CFO. Organisation wide decisions and strategic direction.</li>
+            <li><strong>Middle managers</strong> — department heads. Link top and first line managers, allocate resources.</li>
+            <li><strong>First line managers</strong> — supervisors. Manage non managerial employees day to day.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Managerial Skills (Katz)</h4>
+          <ul>
+            <li><strong>Technical skills</strong> — specialised knowledge, engineers and programmers.</li>
+            <li><strong>Human skills</strong> — working with and motivating people.</li>
+            <li><strong>Conceptual skills</strong> — seeing the organisation as a whole.</li>
+            <li><strong>Communication skills</strong> — sending and receiving information.</li>
+            <li><strong>Problem solving skills</strong> — diagnosing and solving problems.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Mintzberg's Ten Managerial Roles</h4>
+          <ul>
+            <li><strong>Interpersonal</strong> — figurehead, leader, liaison.</li>
+            <li><strong>Informational</strong> — monitor, disseminator, spokesperson.</li>
+            <li><strong>Decisional</strong> — entrepreneur, disturbance handler, resource allocator, negotiator.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-card">
+      <div class="week-header">
+        <div>
+          <span class="label">Week 4</span>
+          <h3>The Evolution of Management Theory</h3>
+        </div>
+        <span class="toggle">+</span>
+      </div>
+      <div class="week-body">
+        <div class="topic">
+          <h4>Classical Approaches</h4>
+          <ul>
+            <li>Scientific management</li>
+            <li>Bureaucracy</li>
+            <li>Administrative management</li>
+            <li>Human relations</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Scientific Management — Frederick Taylor</h4>
+          <p>Focus on maximising worker productivity. Believed there was one best way to perform a task. Introduced time and motion study, piecework, scientific selection and training.</p>
+          <p><strong>Limitations:</strong> reduced workers to machines, assumed money is the only motivator, potential for labour exploitation.</p>
+        </div>
+        <div class="topic">
+          <h4>Administrative Management — Henri Fayol</h4>
+          <p>Focused on managing the whole organisation. Argued management is common to all sectors and can be learnt.</p>
+          <p><strong>Five elements:</strong> Planning, Organizing, Commanding, Coordination, Control.</p>
+          <p><strong>Fourteen principles include:</strong> division of work, authority, discipline, unity of command, unity of direction, subordination of individual interest, remuneration, centralization, hierarchy, order, equity, stability of tenure, initiative, esprit de corps.</p>
+        </div>
+        <div class="topic">
+          <h4>Bureaucracy — Max Weber</h4>
+          <p>Primary focus on organisational structure. Stressed a strictly defined hierarchy governed by clearly defined goals.</p>
+          <p><strong>Tenets:</strong> rules, specificity of competence, hierarchy, specialised training, workers do not own technology, no entitlement to position, everything written down.</p>
+        </div>
+        <div class="topic">
+          <h4>Human Relations — Elton Mayo</h4>
+          <p>Based on the Hawthorne Studies (1927 to 1932). Workers in relaxed, friendly groups with supportive supervisors are more productive. Social needs matter more than economic needs.</p>
+        </div>
+        <div class="topic">
+          <h4>Maslow's Hierarchy of Needs</h4>
+          <ul>
+            <li>Physiological — food, water, warmth, rest.</li>
+            <li>Safety — security.</li>
+            <li>Belongingness — friends, intimate relationships.</li>
+            <li>Esteem — prestige and accomplishment.</li>
+            <li>Self actualization — achieving full potential.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Theory X and Theory Y — McGregor</h4>
+          <p><strong>Theory X</strong> assumes workers dislike work and need authoritarian management.</p>
+          <p><strong>Theory Y</strong> assumes workers see work as an opportunity to develop and take ownership.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-card">
+      <div class="week-header">
+        <div>
+          <span class="label">Week 5</span>
+          <h3>Contemporary Approaches to Management</h3>
+        </div>
+        <span class="toggle">+</span>
+      </div>
+      <div class="week-body">
+        <div class="topic">
+          <h4>Quantitative Management Theory</h4>
+          <p>Deals with mathematical models, statistics, and other tools for decision making. Comprises Management Science and Operations Research.</p>
+        </div>
+        <div class="topic">
+          <h4>Systems Approach</h4>
+          <p>Regards the organisation as a system of interrelated parts. Two types: open systems which interact with the environment, and closed systems which do not.</p>
+          <p><strong>Four parts of a system:</strong> inputs, transformation process, outputs, feedback.</p>
+          <p><strong>Synergy</strong> — combined effect of departments is greater than the sum of their individual effects.</p>
+        </div>
+        <div class="topic">
+          <h4>Contingency Approach</h4>
+          <p>Organisations are different, face different situations, and require different management. Solutions vary case by case.</p>
+          <p><strong>Contingencies:</strong> external environment, capabilities, managers and workers, technology.</p>
+        </div>
+        <div class="topic">
+          <h4>Quality Management</h4>
+          <ul>
+            <li><strong>Quality control</strong> — defect identification.</li>
+            <li><strong>Quality assurance</strong> — defect prevention, striving for zero defects.</li>
+            <li><strong>Total Quality Management</strong> — continuous quality improvement led by top management.</li>
+          </ul>
+          <p><strong>W. Edwards Deming</strong> — major proponent of TQM, known for his work in Japan.</p>
+          <p><strong>TQM principles:</strong> listen to customers, mutually beneficial supplier relationships, manage quality, measure quality, continuous improvement, process approach, prevent problems.</p>
+        </div>
+        <div class="topic">
+          <h4>Six Sigma</h4>
+          <p>A vision and philosophical commitment to the highest quality and lowest cost. At Six Sigma level, only 3.4 defects per million.</p>
+          <p><strong>DMAIC:</strong> Define, Measure, Analyse, Improve, Control.</p>
+          <p><strong>3 Sigma company:</strong> spends 15 to 25% on cost of failure, relies on inspection, believes 99% is good enough.</p>
+          <p><strong>6 Sigma company:</strong> spends 5%, relies on capable processes, benchmarks against the best in the world, believes 99% is unacceptable.</p>
+        </div>
+        <div class="topic">
+          <h4>Re-engineering</h4>
+          <p>A fundamental reappraisal of how organisations operate. Focuses on cost reduction through scrutiny of people, processes, technology and infrastructure. Differs from TQM which focuses on continuous improvement.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-card">
+      <div class="week-header">
+        <div>
+          <span class="label">Week 7 and 8</span>
+          <h3>Organising and Staffing</h3>
+        </div>
+        <span class="toggle">+</span>
+      </div>
+      <div class="week-body">
+        <div class="topic">
+          <h4>Definition of Organizing</h4>
+          <div class="quote">Henri Fayol: to organise a business means to provide it with everything useful to its functioning — raw materials, tools, capital and personnel.</div>
+          <p>It follows planning and synchronises human, physical and financial resources.</p>
+        </div>
+        <div class="topic">
+          <h4>Importance of Organizing</h4>
+          <ul>
+            <li>Specialization — dividing workload into activities.</li>
+            <li>Well defined jobs — right people in right positions.</li>
+            <li>Coordination — all departments working together.</li>
+            <li>Clarifies authority — manager's right to make decisions.</li>
+            <li>Effective administration — clear roles.</li>
+            <li>Scope for new changes — independence and growth.</li>
+            <li>Sense of security — clarity of powers.</li>
+            <li>Growth and diversification.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Process of Organizing</h4>
+          <ul>
+            <li>Identify activities required to achieve objectives.</li>
+            <li>Classify activities into groups (departmentalization).</li>
+            <li>Assign the group of activities to appropriate persons.</li>
+            <li>Delegate authority and assign responsibilities.</li>
+            <li>Coordinate authority — integrate all tasks and resources.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Principles of Organizing</h4>
+          <ul>
+            <li><strong>Division of labour</strong> — tasks subdivided into separate jobs.</li>
+            <li><strong>Departmentalization</strong> — grouping related activities into units.</li>
+            <li><strong>Chain of command</strong> — line of authority from top to bottom.</li>
+            <li><strong>Span of control</strong> — number of employees reporting to a manager.</li>
+            <li><strong>Centralized vs decentralized authority</strong> — who makes important decisions.</li>
+            <li><strong>Coordination</strong> — coordinating work of all departments.</li>
+            <li><strong>Unity of command</strong> — each employee answers to one superior.</li>
+            <li><strong>Responsibility</strong> — duty to perform certain work.</li>
+            <li><strong>Accountability</strong> — ensuring the job is performed and giving an account.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Formal vs Informal Organization</h4>
+          <ul>
+            <li><strong>Formal</strong> — structure of well defined jobs with authority and responsibility. Shown in the organisation chart.</li>
+            <li><strong>Informal</strong> — network of personal and social relationships that emerges spontaneously, not based on rules.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Staffing</h4>
+          <div class="quote">Koontz and O'Donnell (1995): staffing involves manning the organisational structure through proper and effective selection, appraisal and development of personnel to fill the roles designed into the structure.</div>
+          <p><strong>Staffing process stages:</strong> estimating manpower requirements, recruitment, selection, orientation and placement, training and development, remuneration, performance evaluation, promotion and transfer.</p>
+        </div>
+        <div class="topic">
+          <h4>Importance of Staffing</h4>
+          <ul>
+            <li>Helps discover and obtain competent employees.</li>
+            <li>Improves quantity and quality of output.</li>
+            <li>Improves job satisfaction.</li>
+            <li>Reduces cost of personnel.</li>
+            <li>Facilitates growth and diversification.</li>
+          </ul>
+        </div>
+        <div class="topic">
+          <h4>Authority and Delegation</h4>
+          <p><strong>Authority</strong> — rights within a managerial position to give orders and expect obedience.</p>
+          <p><strong>Line authority</strong> — managers make decisions and issue orders down the chain.</p>
+          <p><strong>Staff authority</strong> — responsibility to advise and assist others.</p>
+          <p><strong>Delegation</strong> — assigning authority and responsibility to another person to carry out specific activities.</p>
+        </div>
+        <div class="topic">
+          <h4>Advantages of Delegation</h4>
+          <ul>
+            <li>Frees management to concentrate on major issues.</li>
+            <li>Leads to better decisions.</li>
+            <li>Helps develop subordinates.</li>
+            <li>Helps in timely completion of tasks.</li>
+            <li>Speeds decision making.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ QUIZ VIEW ============ -->
+  <div class="view" id="view-quiz">
+    <div class="quiz-intro" id="quizStart">
+      <span class="inst-tag">Cre8Learn Institute</span>
+      <h2>Business Management 1 — Quiz Bank</h2>
+      <p>40 questions covering all weeks. Answer at your own pace, then check your score.</p>
+      <button class="start-btn" id="startQuizBtn" type="button">Start Quiz</button>
+    </div>
+
+    <div id="quizArea" style="display:none;">
+      <div class="progress-row">
+        <span id="progressText">0 of 40 answered</span>
+        <div class="bar-outer"><div class="bar-inner" id="progressBar"></div></div>
+      </div>
+      <div id="questions"></div>
+      <div class="quiz-controls">
+        <button class="btn primary" id="checkBtn" type="button">Check Answers</button>
+        <button class="btn ghost" id="resetBtn" type="button">Reset</button>
+      </div>
+      <div class="score-banner" id="scoreBanner">
+        <div class="big" id="scoreBig">0 / 40</div>
+        <div class="msg" id="scoreMsg"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="site-footer">
+  <strong>Cre8Learn Institute</strong> &middot; Business Management 1 &middot; Learning Portal &middot; 2025
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var tabs = document.querySelectorAll(".tab");
+  var views = document.querySelectorAll(".view");
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      tabs.forEach(function (t) { t.classList.remove("active"); });
+      views.forEach(function (v) { v.classList.remove("active"); });
+      tab.classList.add("active");
+      document.getElementById("view-" + tab.getAttribute("data-view")).classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
+  var headers = document.querySelectorAll(".week-header");
+  headers.forEach(function (h) {
+    h.addEventListener("click", function () {
+      var card = h.parentElement;
+      card.classList.toggle("open");
+    });
+  });
+
+  var questions = [
+    { week: "Week 1", text: "Which of the following best describes a business?", options: ["An organisation that provides goods and services to customers in a specific environment", "A government department only", "A social club for members only", "A charitable trust with no customers"], answer: 0 },
+    { week: "Week 1", text: "Which of these is a tangible object that satisfies needs and wants?", options: ["Teaching", "Goods", "Service", "Haircut"], answer: 1 },
+    { week: "Week 1", text: "Which of the following is an example of a service?", options: ["Cell phone", "Furniture", "Machinery repair", "Clothing"], answer: 2 },
+    { week: "Week 1", text: "What is the difference between a customer and a consumer?", options: ["A customer uses the product, a consumer buys it", "A customer buys the product, a consumer uses it", "They are exactly the same thing", "A consumer only buys online"], answer: 1 },
+    { week: "Week 1", text: "Business management developed from which field of study?", options: ["Engineering", "Economics", "Biology", "Art"], answer: 1 },
+    { week: "Week 1", text: "Which of the following is NOT a factor of production?", options: ["Natural resources", "Capital", "Competitors", "Entrepreneurship"], answer: 2 },
+    { week: "Week 1", text: "Which factor of production refers to employees with skills and expertise?", options: ["Capital", "Human resources", "Knowledge", "Natural resources"], answer: 1 },
+    { week: "Week 1", text: "Which of the following is a profit seeking firm?", options: ["Ministry of Education", "Government hospital", "Shoprite", "Public library"], answer: 2 },
+    { week: "Week 1", text: "Which of the following is a non profit seeking firm?", options: ["Spar", "Pick n Pay", "Government hospital", "Private logistics company"], answer: 2 },
+    { week: "Week 1", text: "According to Smit and Cronje, management is the process of planning, organizing, leading and controlling resources to achieve what?", options: ["Higher sales only", "Stated organisational goals as productively as possible", "Employee happiness only", "Reduced taxes"], answer: 1 },
+    { week: "Week 1", text: "What does efficiency mean in management?", options: ["Doing the right things", "Getting the most output from the least input", "Attaining goals regardless of cost", "Making the most profit"], answer: 1 },
+    { week: "Week 1", text: "What does effectiveness mean in management?", options: ["Doing things right", "Low resource waste", "Completing activities so organisational goals are attained", "Using the cheapest materials"], answer: 2 },
+
+    { week: "Week 2 and 3", text: "Which of the following is NOT one of the four functions of management?", options: ["Planning", "Organizing", "Advertising", "Controlling"], answer: 2 },
+    { week: "Week 2 and 3", text: "Which management function involves defining goals and strategies?", options: ["Planning", "Organizing", "Leading", "Controlling"], answer: 0 },
+    { week: "Week 2 and 3", text: "Which management function involves monitoring performance against goals?", options: ["Planning", "Organizing", "Leading", "Controlling"], answer: 3 },
+    { week: "Week 2 and 3", text: "Who manages the work of first line managers?", options: ["Non managerial employees", "Middle managers", "Top managers", "External auditors"], answer: 1 },
+    { week: "Week 2 and 3", text: "Which level of management is responsible for organisation wide decisions?", options: ["First line managers", "Middle managers", "Top managers", "Team leaders"], answer: 2 },
+    { week: "Week 2 and 3", text: "Which of Katz's skills is the ability to use procedures and knowledge of a specialised field?", options: ["Human skills", "Conceptual skills", "Technical skills", "Communication skills"], answer: 2 },
+    { week: "Week 2 and 3", text: "Which skill becomes more important as one moves up the organisational hierarchy?", options: ["Technical skills", "Conceptual skills", "Manual skills", "Physical skills"], answer: 1 },
+    { week: "Week 2 and 3", text: "In Mintzberg's framework, which role involves hiring, training and motivating employees?", options: ["Figurehead", "Leader", "Monitor", "Negotiator"], answer: 1 },
+    { week: "Week 2 and 3", text: "Which of the following is an informational role in Mintzberg's framework?", options: ["Leader", "Spokesperson", "Entrepreneur", "Resource allocator"], answer: 1 },
+    { week: "Week 2 and 3", text: "Which of the following is a decisional role in Mintzberg's framework?", options: ["Figurehead", "Liaison", "Disseminator", "Negotiator"], answer: 3 },
+
+    { week: "Week 4", text: "Who is known as the father of scientific management?", options: ["Henri Fayol", "Max Weber", "Frederick W. Taylor", "Elton Mayo"], answer: 2 },
+    { week: "Week 4", text: "Which approach focused on managing the whole organisation and identified five elements of management?", options: ["Scientific management", "Administrative management", "Bureaucracy", "Human relations"], answer: 1 },
+    { week: "Week 4", text: "Who argued that management is a skill that can be learnt and is common in all sectors?", options: ["Frederick Taylor", "Henri Fayol", "Max Weber", "Abraham Maslow"], answer: 1 },
+    { week: "Week 4", text: "Which theorist focused on organisational structure with a strictly defined hierarchy?", options: ["Elton Mayo", "Max Weber", "Frederick Taylor", "Douglas McGregor"], answer: 1 },
+    { week: "Week 4", text: "The Hawthorne Studies led to which school of management thought?", options: ["Scientific management", "Bureaucracy", "Human relations", "Quantitative management"], answer: 2 },
+    { week: "Week 4", text: "Which of Maslow's needs is at the very top of the hierarchy?", options: ["Physiological", "Safety", "Esteem", "Self actualization"], answer: 3 },
+    { week: "Week 4", text: "Which theory assumes workers dislike work and need authoritarian management?", options: ["Theory X", "Theory Y", "Theory Z", "Contingency theory"], answer: 0 },
+    { week: "Week 4", text: "Which theory assumes workers approach work as an opportunity to develop their talents?", options: ["Theory X", "Theory Y", "Bureaucracy", "Scientific management"], answer: 1 },
+
+    { week: "Week 5", text: "Which approach regards the organisation as a system of interrelated parts?", options: ["Contingency approach", "Systems approach", "Human relations", "Scientific management"], answer: 1 },
+    { week: "Week 5", text: "What are the four parts of a system?", options: ["Planning, organizing, leading, controlling", "Inputs, transformation, outputs, feedback", "Land, labour, capital, entrepreneurship", "Rules, hierarchy, training, records"], answer: 1 },
+    { week: "Week 5", text: "What is synergy in the systems approach?", options: ["The organisation ignores its environment", "Combined effect of departments is greater than the sum of their individual effects", "Departments work in isolation", "Managers avoid coordination"], answer: 1 },
+    { week: "Week 5", text: "Which approach states that organisations face different situations and require different management?", options: ["Systems approach", "Contingency approach", "Bureaucracy", "Scientific management"], answer: 1 },
+    { week: "Week 5", text: "What does TQM stand for?", options: ["Total Quality Management", "Total Quantity Measurement", "Team Quality Methods", "Technical Quality Maintenance"], answer: 0 },
+    { week: "Week 5", text: "At the Six Sigma level, how many defects per million are expected?", options: ["3.4", "34", "340", "3400"], answer: 0 },
+    { week: "Week 5", text: "What does DMAIC stand for in Six Sigma?", options: ["Define, Measure, Analyse, Improve, Control", "Design, Manage, Assess, Inspect, Correct", "Deliver, Monitor, Adjust, Implement, Confirm", "Decide, Measure, Adjust, Inspect, Complete"], answer: 0 },
+    { week: "Week 5", text: "Which approach focuses on cost reduction rather than continuous improvement?", options: ["TQM", "Re-engineering", "Systems approach", "Human relations"], answer: 1 },
+
+    { week: "Week 7 and 8", text: "According to Henri Fayol, organising a business means providing it with what?", options: ["Only capital", "Everything useful to its functioning such as raw materials, tools, capital and personnel", "Only personnel", "Only raw materials"], answer: 1 },
+    { week: "Week 7 and 8", text: "Which of the following is an importance of organizing?", options: ["Increases confusion", "Clarifies authority", "Reduces job satisfaction", "Eliminates specialization"], answer: 1 },
+    { week: "Week 7 and 8", text: "What is departmentalization?", options: ["Grouping of related activities into units", "Dividing one department into two", "Hiring more employees", "Reducing the workforce"], answer: 0 },
+    { week: "Week 7 and 8", text: "Which principle states that each employee should answer to only one immediate superior?", options: ["Span of control", "Unity of command", "Responsibility", "Accountability"], answer: 1 },
+    { week: "Week 7 and 8", text: "What is span of control?", options: ["Number of employees reporting to a manager", "Number of departments in an organisation", "Number of rules in a company", "Number of products sold"], answer: 0 },
+    { week: "Week 7 and 8", text: "Which type of organisation refers to a network of personal and social relationships that emerges spontaneously?", options: ["Formal organisation", "Informal organisation", "Bureaucratic organisation", "Matrix organisation"], answer: 1 },
+    { week: "Week 7 and 8", text: "Which of the following is the first stage of the staffing process?", options: ["Recruitment", "Selection", "Estimating manpower requirements", "Promotion"], answer: 2 },
+    { week: "Week 7 and 8", text: "What is delegation?", options: ["Refusing to give others any tasks", "Assigning authority and responsibility to another person to carry out specific activities", "Firing an employee", "Hiring a new employee"], answer: 1 },
+    { week: "Week 7 and 8", text: "Which of the following is an advantage of delegation?", options: ["Slows decision making", "Frees management to concentrate on major issues", "Reduces subordinate development", "Delays completion of tasks"], answer: 1 }
+  ];
+
+  var quizStart = document.getElementById("quizStart");
+  var quizArea = document.getElementById("quizArea");
+  var startBtn = document.getElementById("startQuizBtn");
+  var questionsEl = document.getElementById("questions");
+  var checkBtn = document.getElementById("checkBtn");
+  var resetBtn = document.getElementById("resetBtn");
+  var scoreBanner = document.getElementById("scoreBanner");
+  var scoreBig = document.getElementById("scoreBig");
+  var scoreMsg = document.getElementById("scoreMsg");
+  var progressText = document.getElementById("progressText");
+  var progressBar = document.getElementById("progressBar");
+
+  var selections = {};
+  var checked = false;
+
+  function buildQuiz() {
+    questionsEl.innerHTML = "";
+    selections = {};
+    checked = false;
+    scoreBanner.classList.remove("show");
+    updateProgress();
+
+    questions.forEach(function (q, qi) {
+      var card = document.createElement("div");
+      card.className = "q-card";
+
+      var meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML =
+        '<span class="qnum">Question ' + (qi + 1) + "</span>" +
+        '<span class="week-tag">' + q.week + "</span>";
+      card.appendChild(meta);
+
+      var qtext = document.createElement("div");
+      qtext.className = "qtext";
+      qtext.textContent = q.text;
+      card.appendChild(qtext);
+
+      var opts = document.createElement("div");
+      opts.className = "q-options";
+
+      q.options.forEach(function (opt, oi) {
+        var optEl = document.createElement("div");
+        optEl.className = "q-option";
+        optEl.setAttribute("data-q", qi);
+        optEl.setAttribute("data-o", oi);
+
+        var letter = document.createElement("span");
+        letter.className = "letter";
+        letter.textContent = String.fromCharCode(65 + oi);
+
+        var textSpan = document.createElement("span");
+        textSpan.textContent = opt;
+
+        optEl.appendChild(letter);
+        optEl.appendChild(textSpan);
+
+        optEl.addEventListener("click", function () {
+          if (checked) return;
+          var prev = opts.querySelector(".selected");
+          if (prev) prev.classList.remove("selected");
+          optEl.classList.add("selected");
+          selections[qi] = oi;
+          updateProgress();
+        });
+
+        opts.appendChild(optEl);
+      });
+
+      card.appendChild(opts);
+      questionsEl.appendChild(card);
+    });
+  }
+
+  function updateProgress() {
+    var answered = Object.keys(selections).length;
+    var total = questions.length;
+    progressText.textContent = answered + " of " + total + " answered";
+    var pct = total === 0 ? 0 : (answered / total) * 100;
+    progressBar.style.width = pct + "%";
+  }
+
+  function checkAnswers() {
+    checked = true;
+    var correct = 0;
+    var cards = questionsEl.querySelectorAll(".q-card");
+
+    questions.forEach(function (q, qi) {
+      var card = cards[qi];
+      var optEls = card.querySelectorAll(".q-option");
+      var chosen = selections[qi];
+
+      optEls.forEach(function (optEl, oi) {
+        optEl.classList.remove("correct", "wrong", "selected");
+        if (oi === q.answer) {
+          optEl.classList.add("correct");
+        } else if (oi === chosen && chosen !== q.answer) {
+          optEl.classList.add("wrong");
+        }
+      });
+
+      if (chosen === q.answer) {
+        correct++;
+      }
+    });
+
+    scoreBig.textContent = correct + " / " + questions.length;
+    var pct = Math.round((correct / questions.length) * 100);
+    var msg = "";
+    if (pct >= 80) msg = "Excellent work. You have a strong grasp of the material.";
+    else if (pct >= 60) msg = "Good effort. Review the sections you missed and try again.";
+    else if (pct >= 40) msg = "Fair. Go back to the study portal and revisit the key topics.";
+    else msg = "Keep going. Open the study portal and work through each week carefully.";
+    scoreMsg.textContent = pct + "% correct. " + msg;
+    scoreBanner.classList.add("show");
+    scoreBanner.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function resetQuiz() {
+    buildQuiz();
+    scoreBanner.classList.remove("show");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  startBtn.addEventListener("click", function () {
+    quizStart.style.display = "none";
+    quizArea.style.display = "block";
+    buildQuiz();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  checkBtn.addEventListener("click", checkAnswers);
+  resetBtn.addEventListener("click", resetQuiz);
+
+})();
+</script>
+</body>
+</html>
