@@ -8,17 +8,17 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #0f1117;
-    --surface: #161a22;
-    --surface-2: #1c2129;
-    --border: #2a3038;
-    --accent: #4f9cf9;
-    --accent-dim: #2a5a94;
-    --gold: #e0b84a;
-    --green: #4cd07a;
-    --red: #e05c5c;
-    --text: #dfe6f0;
-    --text-dim: #8892a4;
+    --bg: #eef1ec;
+    --surface: #ffffff;
+    --surface-2: #f4f7f1;
+    --border: #d3dbcf;
+    --accent: #2f6fb5;
+    --accent-dim: #4f8cd0;
+    --gold: #b08d1e;
+    --green: #2d8a4a;
+    --red: #c0392b;
+    --text: #1a1a1a;
+    --text-dim: #555555;
     --mono: "Courier New", Courier, monospace;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
@@ -43,6 +43,7 @@
     z-index: 100;
     flex-wrap: wrap;
     gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
   .brand {
     display: flex;
@@ -58,6 +59,7 @@
     font-family: var(--mono);
     width: 100%;
     margin-bottom: -4px;
+    font-weight: bold;
   }
   .brand .name {
     font-size: 17px;
@@ -75,6 +77,7 @@
     background: var(--surface-2);
     border-radius: 8px;
     padding: 4px;
+    border: 1px solid var(--border);
   }
   .tab {
     background: transparent;
@@ -91,7 +94,7 @@
   .tab:hover { color: var(--text); }
   .tab.active {
     background: var(--accent);
-    color: #0f1117;
+    color: #fff;
     font-weight: 600;
   }
 
@@ -104,12 +107,13 @@
   .view.active { display: block; }
 
   .portal-intro {
-    background: linear-gradient(135deg, #1a2133 0%, #161a22 100%);
+    background: linear-gradient(135deg, #f4f8f2 0%, #ffffff 100%);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 28px 30px;
     margin-bottom: 26px;
     position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   }
   .portal-intro .inst-tag {
     font-family: var(--mono);
@@ -119,6 +123,7 @@
     color: var(--gold);
     margin-bottom: 8px;
     display: block;
+    font-weight: bold;
   }
   .portal-intro h1 {
     font-size: 24px;
@@ -138,6 +143,7 @@
     margin-bottom: 18px;
     overflow: hidden;
     transition: border-color 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
   }
   .week-card:hover { border-color: var(--accent-dim); }
   .week-header {
@@ -157,6 +163,7 @@
     color: var(--gold);
     display: block;
     margin-bottom: 3px;
+    font-weight: bold;
   }
   .week-header h3 {
     font-size: 16px;
@@ -217,6 +224,7 @@
     padding: 26px 30px;
     margin-bottom: 22px;
     text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   }
   .quiz-intro .inst-tag {
     font-family: var(--mono);
@@ -226,6 +234,7 @@
     color: var(--gold);
     margin-bottom: 10px;
     display: block;
+    font-weight: bold;
   }
   .quiz-intro h2 {
     font-size: 20px;
@@ -238,7 +247,7 @@
   }
   .quiz-intro .start-btn {
     background: var(--accent);
-    color: #0f1117;
+    color: #fff;
     border: none;
     padding: 13px 34px;
     border-radius: 8px;
@@ -249,7 +258,8 @@
     transition: transform 0.1s, box-shadow 0.15s;
   }
   .quiz-intro .start-btn:hover {
-    box-shadow: 0 0 24px rgba(79, 156, 249, 0.35);
+    background: #3a7fc5;
+    box-shadow: 0 0 20px rgba(47, 111, 181, 0.25);
   }
   .quiz-intro .start-btn:active { transform: scale(0.98); }
 
@@ -259,6 +269,7 @@
     border-radius: 10px;
     padding: 22px 26px;
     margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
   }
   .q-card .meta {
     display: flex;
@@ -274,6 +285,7 @@
     color: var(--gold);
     letter-spacing: 1px;
     text-transform: uppercase;
+    font-weight: bold;
   }
   .q-card .week-tag {
     font-size: 10px;
@@ -282,6 +294,7 @@
     padding: 2px 10px;
     border-radius: 10px;
     letter-spacing: 0.5px;
+    border: 1px solid var(--border);
   }
   .q-card .qtext {
     font-size: 15px;
@@ -309,8 +322,9 @@
     transition: border-color 0.15s, background 0.15s, color 0.15s;
   }
   .q-option:hover {
-    background: #222a35;
+    background: #eaf2fb;
     color: var(--text);
+    border-color: var(--accent-dim);
   }
   .q-option .letter {
     width: 22px;
@@ -327,25 +341,25 @@
   }
   .q-option.selected {
     border-color: var(--accent);
-    background: rgba(79, 156, 249, 0.08);
+    background: rgba(47, 111, 181, 0.08);
     color: var(--text);
   }
   .q-option.selected .letter {
     background: var(--accent);
-    color: #0f1117;
+    color: #fff;
   }
   .q-option.correct {
     border-color: var(--green);
-    background: rgba(76, 208, 122, 0.08);
+    background: rgba(45, 138, 74, 0.1);
     color: var(--text);
   }
   .q-option.correct .letter {
     background: var(--green);
-    color: #0f1117;
+    color: #fff;
   }
   .q-option.wrong {
     border-color: var(--red);
-    background: rgba(224, 92, 92, 0.08);
+    background: rgba(192, 57, 43, 0.08);
     color: var(--text);
   }
   .q-option.wrong .letter {
@@ -367,13 +381,13 @@
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    transition: opacity 0.15s;
+    transition: opacity 0.15s, background 0.15s;
     border: 1px solid transparent;
   }
-  .btn:hover { opacity: 0.85; }
+  .btn:hover { opacity: 0.88; }
   .btn.primary {
     background: var(--accent);
-    color: #0f1117;
+    color: #fff;
   }
   .btn.ghost {
     background: transparent;
@@ -386,13 +400,14 @@
   }
 
   .score-banner {
-    background: linear-gradient(135deg, #1a2133 0%, #161a22 100%);
+    background: linear-gradient(135deg, #f4f8f2 0%, #ffffff 100%);
     border: 1px solid var(--accent-dim);
     border-radius: 12px;
     padding: 24px;
     text-align: center;
     margin-top: 26px;
     display: none;
+    box-shadow: 0 4px 16px rgba(47, 111, 181, 0.08);
   }
   .score-banner.show { display: block; }
   .score-banner .big {
@@ -425,6 +440,7 @@
     background: var(--surface-2);
     border-radius: 3px;
     overflow: hidden;
+    border: 1px solid var(--border);
   }
   .bar-inner {
     height: 100%;
@@ -473,7 +489,7 @@
   <div class="view active" id="view-study">
     <div class="portal-intro">
       <span class="inst-tag">Cre8Learn Institute</span>
-      <h1>Business Management 1 — Study Portal</h1>
+      <h1>Business Management 1: Study Portal</h1>
       <p>All key topics from Weeks 1 through 8. Click any topic card to open it. Everything is handled right here in the page.</p>
     </div>
 
@@ -508,26 +524,26 @@
         <div class="topic">
           <h4>Factors of Production</h4>
           <ul>
-            <li><strong>Natural resources</strong> — land, water, minerals.</li>
-            <li><strong>Human resources (labour)</strong> — employees with skills and expertise.</li>
-            <li><strong>Capital</strong> — money or assets used to deliver value.</li>
-            <li><strong>Entrepreneurship</strong> — developing and managing a venture, taking risks.</li>
-            <li><strong>Knowledge</strong> — understanding your product, customers and competitors.</li>
+            <li><strong>Natural resources:</strong> land, water, minerals.</li>
+            <li><strong>Human resources (labour):</strong> employees with skills and expertise.</li>
+            <li><strong>Capital:</strong> money or assets used to deliver value.</li>
+            <li><strong>Entrepreneurship:</strong> developing and managing a venture, taking risks.</li>
+            <li><strong>Knowledge:</strong> understanding your product, customers and competitors.</li>
           </ul>
         </div>
         <div class="topic">
           <h4>Profit vs Non Profit Firms</h4>
           <ul>
-            <li><strong>Profit seeking firms</strong> — aim to earn more revenue than expenses. Examples: Pick n Pay, Shoprite, Spar.</li>
-            <li><strong>Non profit seeking firms</strong> — need satisfying institutions. Examples: government hospitals, ministries.</li>
+            <li><strong>Profit seeking firms</strong> aim to earn more revenue than expenses. Examples: Pick n Pay, Shoprite, Spar.</li>
+            <li><strong>Non profit seeking firms</strong> are need satisfying institutions. Examples: government hospitals, ministries.</li>
           </ul>
         </div>
         <div class="topic">
           <h4>Business Stakeholders</h4>
           <ul>
-            <li><strong>Business related</strong> — owners, investors, consumers, personnel, shareholders, banks, auditors, suppliers.</li>
-            <li><strong>Public related</strong> — local authorities, national authorities, neighbours, NGOs, trade unions, politicians.</li>
-            <li><strong>Opinion related</strong> — competitors, potential employees, media.</li>
+            <li><strong>Business related:</strong> owners, investors, consumers, personnel, shareholders, banks, auditors, suppliers.</li>
+            <li><strong>Public related:</strong> local authorities, national authorities, neighbours, NGOs, trade unions, politicians.</li>
+            <li><strong>Opinion related:</strong> competitors, potential employees, media.</li>
           </ul>
         </div>
         <div class="topic">
@@ -555,36 +571,36 @@
         <div class="topic">
           <h4>Four Functions of Management</h4>
           <ul>
-            <li><strong>Planning</strong> — defining goals and strategies.</li>
-            <li><strong>Organizing</strong> — determining tasks, who does them, who reports to whom.</li>
-            <li><strong>Leading</strong> — motivating and influencing individuals and teams.</li>
-            <li><strong>Controlling</strong> — monitoring performance against goals.</li>
+            <li><strong>Planning:</strong> defining goals and strategies.</li>
+            <li><strong>Organizing:</strong> determining tasks, who does them, who reports to whom.</li>
+            <li><strong>Leading:</strong> motivating and influencing individuals and teams.</li>
+            <li><strong>Controlling:</strong> monitoring performance against goals.</li>
           </ul>
         </div>
         <div class="topic">
           <h4>Levels of Management</h4>
           <ul>
-            <li><strong>Top managers</strong> — CEO, CFO. Organisation wide decisions and strategic direction.</li>
-            <li><strong>Middle managers</strong> — department heads. Link top and first line managers, allocate resources.</li>
-            <li><strong>First line managers</strong> — supervisors. Manage non managerial employees day to day.</li>
+            <li><strong>Top managers:</strong> CEO, CFO. Organisation wide decisions and strategic direction.</li>
+            <li><strong>Middle managers:</strong> department heads. Link top and first line managers, allocate resources.</li>
+            <li><strong>First line managers:</strong> supervisors. Manage non managerial employees day to day.</li>
           </ul>
         </div>
         <div class="topic">
           <h4>Managerial Skills (Katz)</h4>
           <ul>
-            <li><strong>Technical skills</strong> — specialised knowledge, engineers and programmers.</li>
-            <li><strong>Human skills</strong> — working with and motivating people.</li>
-            <li><strong>Conceptual skills</strong> — seeing the organisation as a whole.</li>
-            <li><strong>Communication skills</strong> — sending and receiving information.</li>
-            <li><strong>Problem solving skills</strong> — diagnosing and solving problems.</li>
+            <li><strong>Technical skills:</strong> specialised knowledge, engineers and programmers.</li>
+            <li><strong>Human skills:</strong> working with and motivating people.</li>
+            <li><strong>Conceptual skills:</strong> seeing the organisation as a whole.</li>
+            <li><strong>Communication skills:</strong> sending and receiving information.</li>
+            <li><strong>Problem solving skills:</strong> diagnosing and solving problems.</li>
           </ul>
         </div>
         <div class="topic">
           <h4>Mintzberg's Ten Managerial Roles</h4>
           <ul>
-            <li><strong>Interpersonal</strong> — figurehead, leader, liaison.</li>
-            <li><strong>Informational</strong> — monitor, disseminator, spokesperson.</li>
-            <li><strong>Decisional</strong> — entrepreneur, disturbance handler, resource allocator, negotiator.</li>
+            <li><strong>Interpersonal:</strong> figurehead, leader, liaison.</li>
+            <li><strong>Informational:</strong> monitor, disseminator, spokesperson.</li>
+            <li><strong>Decisional:</strong> entrepreneur, disturbance handler, resource allocator, negotiator.</li>
           </ul>
         </div>
       </div>
@@ -609,37 +625,37 @@
           </ul>
         </div>
         <div class="topic">
-          <h4>Scientific Management — Frederick Taylor</h4>
+          <h4>Scientific Management: Frederick Taylor</h4>
           <p>Focus on maximising worker productivity. Believed there was one best way to perform a task. Introduced time and motion study, piecework, scientific selection and training.</p>
           <p><strong>Limitations:</strong> reduced workers to machines, assumed money is the only motivator, potential for labour exploitation.</p>
         </div>
         <div class="topic">
-          <h4>Administrative Management — Henri Fayol</h4>
+          <h4>Administrative Management: Henri Fayol</h4>
           <p>Focused on managing the whole organisation. Argued management is common to all sectors and can be learnt.</p>
           <p><strong>Five elements:</strong> Planning, Organizing, Commanding, Coordination, Control.</p>
           <p><strong>Fourteen principles include:</strong> division of work, authority, discipline, unity of command, unity of direction, subordination of individual interest, remuneration, centralization, hierarchy, order, equity, stability of tenure, initiative, esprit de corps.</p>
         </div>
         <div class="topic">
-          <h4>Bureaucracy — Max Weber</h4>
+          <h4>Bureaucracy: Max Weber</h4>
           <p>Primary focus on organisational structure. Stressed a strictly defined hierarchy governed by clearly defined goals.</p>
           <p><strong>Tenets:</strong> rules, specificity of competence, hierarchy, specialised training, workers do not own technology, no entitlement to position, everything written down.</p>
         </div>
         <div class="topic">
-          <h4>Human Relations — Elton Mayo</h4>
+          <h4>Human Relations: Elton Mayo</h4>
           <p>Based on the Hawthorne Studies (1927 to 1932). Workers in relaxed, friendly groups with supportive supervisors are more productive. Social needs matter more than economic needs.</p>
         </div>
         <div class="topic">
           <h4>Maslow's Hierarchy of Needs</h4>
           <ul>
-            <li>Physiological — food, water, warmth, rest.</li>
-            <li>Safety — security.</li>
-            <li>Belongingness — friends, intimate relationships.</li>
-            <li>Esteem — prestige and accomplishment.</li>
-            <li>Self actualization — achieving full potential.</li>
+            <li>Physiological: food, water, warmth, rest.</li>
+            <li>Safety: security.</li>
+            <li>Belongingness: friends, intimate relationships.</li>
+            <li>Esteem: prestige and accomplishment.</li>
+            <li>Self actualization: achieving full potential.</li>
           </ul>
         </div>
         <div class="topic">
-          <h4>Theory X and Theory Y — McGregor</h4>
+          <h4>Theory X and Theory Y: McGregor</h4>
           <p><strong>Theory X</strong> assumes workers dislike work and need authoritarian management.</p>
           <p><strong>Theory Y</strong> assumes workers see work as an opportunity to develop and take ownership.</p>
         </div>
@@ -663,7 +679,7 @@
           <h4>Systems Approach</h4>
           <p>Regards the organisation as a system of interrelated parts. Two types: open systems which interact with the environment, and closed systems which do not.</p>
           <p><strong>Four parts of a system:</strong> inputs, transformation process, outputs, feedback.</p>
-          <p><strong>Synergy</strong> — combined effect of departments is greater than the sum of their individual effects.</p>
+          <p><strong>Synergy</strong> means the combined effect of departments is greater than the sum of their individual effects.</p>
         </div>
         <div class="topic">
           <h4>Contingency Approach</h4>
@@ -673,11 +689,11 @@
         <div class="topic">
           <h4>Quality Management</h4>
           <ul>
-            <li><strong>Quality control</strong> — defect identification.</li>
-            <li><strong>Quality assurance</strong> — defect prevention, striving for zero defects.</li>
-            <li><strong>Total Quality Management</strong> — continuous quality improvement led by top management.</li>
+            <li><strong>Quality control:</strong> defect identification.</li>
+            <li><strong>Quality assurance:</strong> defect prevention, striving for zero defects.</li>
+            <li><strong>Total Quality Management:</strong> continuous quality improvement led by top management.</li>
           </ul>
-          <p><strong>W. Edwards Deming</strong> — major proponent of TQM, known for his work in Japan.</p>
+          <p><strong>W. Edwards Deming</strong> was a major proponent of TQM, known for his work in Japan.</p>
           <p><strong>TQM principles:</strong> listen to customers, mutually beneficial supplier relationships, manage quality, measure quality, continuous improvement, process approach, prevent problems.</p>
         </div>
         <div class="topic">
@@ -705,19 +721,19 @@
       <div class="week-body">
         <div class="topic">
           <h4>Definition of Organizing</h4>
-          <div class="quote">Henri Fayol: to organise a business means to provide it with everything useful to its functioning — raw materials, tools, capital and personnel.</div>
+          <div class="quote">Henri Fayol: to organise a business means to provide it with everything useful to its functioning, including raw materials, tools, capital and personnel.</div>
           <p>It follows planning and synchronises human, physical and financial resources.</p>
         </div>
         <div class="topic">
           <h4>Importance of Organizing</h4>
           <ul>
-            <li>Specialization — dividing workload into activities.</li>
-            <li>Well defined jobs — right people in right positions.</li>
-            <li>Coordination — all departments working together.</li>
-            <li>Clarifies authority — manager's right to make decisions.</li>
-            <li>Effective administration — clear roles.</li>
-            <li>Scope for new changes — independence and growth.</li>
-            <li>Sense of security — clarity of powers.</li>
+            <li>Specialization: dividing workload into activities.</li>
+            <li>Well defined jobs: right people in right positions.</li>
+            <li>Coordination: all departments working together.</li>
+            <li>Clarifies authority: manager's right to make decisions.</li>
+            <li>Effective administration: clear roles.</li>
+            <li>Scope for new changes: independence and growth.</li>
+            <li>Sense of security: clarity of powers.</li>
             <li>Growth and diversification.</li>
           </ul>
         </div>
@@ -728,28 +744,28 @@
             <li>Classify activities into groups (departmentalization).</li>
             <li>Assign the group of activities to appropriate persons.</li>
             <li>Delegate authority and assign responsibilities.</li>
-            <li>Coordinate authority — integrate all tasks and resources.</li>
+            <li>Coordinate authority: integrate all tasks and resources.</li>
           </ul>
         </div>
         <div class="topic">
           <h4>Principles of Organizing</h4>
           <ul>
-            <li><strong>Division of labour</strong> — tasks subdivided into separate jobs.</li>
-            <li><strong>Departmentalization</strong> — grouping related activities into units.</li>
-            <li><strong>Chain of command</strong> — line of authority from top to bottom.</li>
-            <li><strong>Span of control</strong> — number of employees reporting to a manager.</li>
-            <li><strong>Centralized vs decentralized authority</strong> — who makes important decisions.</li>
-            <li><strong>Coordination</strong> — coordinating work of all departments.</li>
-            <li><strong>Unity of command</strong> — each employee answers to one superior.</li>
-            <li><strong>Responsibility</strong> — duty to perform certain work.</li>
-            <li><strong>Accountability</strong> — ensuring the job is performed and giving an account.</li>
+            <li><strong>Division of labour:</strong> tasks subdivided into separate jobs.</li>
+            <li><strong>Departmentalization:</strong> grouping related activities into units.</li>
+            <li><strong>Chain of command:</strong> line of authority from top to bottom.</li>
+            <li><strong>Span of control:</strong> number of employees reporting to a manager.</li>
+            <li><strong>Centralized vs decentralized authority:</strong> who makes important decisions.</li>
+            <li><strong>Coordination:</strong> coordinating work of all departments.</li>
+            <li><strong>Unity of command:</strong> each employee answers to one superior.</li>
+            <li><strong>Responsibility:</strong> duty to perform certain work.</li>
+            <li><strong>Accountability:</strong> ensuring the job is performed and giving an account.</li>
           </ul>
         </div>
         <div class="topic">
           <h4>Formal vs Informal Organization</h4>
           <ul>
-            <li><strong>Formal</strong> — structure of well defined jobs with authority and responsibility. Shown in the organisation chart.</li>
-            <li><strong>Informal</strong> — network of personal and social relationships that emerges spontaneously, not based on rules.</li>
+            <li><strong>Formal:</strong> structure of well defined jobs with authority and responsibility. Shown in the organisation chart.</li>
+            <li><strong>Informal:</strong> network of personal and social relationships that emerges spontaneously, not based on rules.</li>
           </ul>
         </div>
         <div class="topic">
@@ -769,10 +785,10 @@
         </div>
         <div class="topic">
           <h4>Authority and Delegation</h4>
-          <p><strong>Authority</strong> — rights within a managerial position to give orders and expect obedience.</p>
-          <p><strong>Line authority</strong> — managers make decisions and issue orders down the chain.</p>
-          <p><strong>Staff authority</strong> — responsibility to advise and assist others.</p>
-          <p><strong>Delegation</strong> — assigning authority and responsibility to another person to carry out specific activities.</p>
+          <p><strong>Authority:</strong> rights within a managerial position to give orders and expect obedience.</p>
+          <p><strong>Line authority:</strong> managers make decisions and issue orders down the chain.</p>
+          <p><strong>Staff authority:</strong> responsibility to advise and assist others.</p>
+          <p><strong>Delegation:</strong> assigning authority and responsibility to another person to carry out specific activities.</p>
         </div>
         <div class="topic">
           <h4>Advantages of Delegation</h4>
@@ -788,11 +804,10 @@
     </div>
   </div>
 
-  <!-- ============ QUIZ VIEW ============ -->
   <div class="view" id="view-quiz">
     <div class="quiz-intro" id="quizStart">
       <span class="inst-tag">Cre8Learn Institute</span>
-      <h2>Business Management 1 — Quiz Bank</h2>
+      <h2>Business Management 1: Quiz Bank</h2>
       <p>40 questions covering all weeks. Answer at your own pace, then check your score.</p>
       <button class="start-btn" id="startQuizBtn" type="button">Start Quiz</button>
     </div>
